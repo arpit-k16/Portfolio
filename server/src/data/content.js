@@ -74,7 +74,7 @@ export const projects = [
       'Predicts crowd levels across a metro network from time, station type, weather and events, using a synthetic dataset modelled on Delhi Metro operations. An interactive dashboard shows where and when congestion builds. Built with Lakshay.',
     highlight: 'Time × station × weather',
     stack: ['Python', 'Pandas', 'XGBoost', 'Streamlit'],
-    links: { code: 'https://github.com/arpit-k16' },
+    links: { code: 'https://github.com/arpit-k16/BheedMitra-Delhi-Metro-Crowd-Management-System' },
   },
   {
     slug: 'british-airways',
