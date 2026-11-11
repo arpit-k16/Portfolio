@@ -11,6 +11,13 @@ export default function AdminPage() {
   const [posts, setPosts] = useState([]);
   const [msg, setMsg] = useState({ kind: '', text: '' });
   const [busy, setBusy] = useState(false);
+  const [inbox, setInbox] = useState(null);
+  const [inboxErr, setInboxErr] = useState('');
+  const loadInbox = async () => {
+    setInboxErr('');
+    try { setInbox(await api.messages(token)); }
+    catch (err) { setInbox(null); setInboxErr(err.message === 'Unauthorized' ? 'That admin token is not right. Copy ADMIN_TOKEN from Render again.' : err.message); }
+  };
 
   const refresh = () => api.posts().then(setPosts).catch(() => {});
   useEffect(() => { refresh(); }, []);
@@ -43,11 +50,34 @@ export default function AdminPage() {
   return (
     <section className="page admin">
       <header className="page-head"><div>
-        <h1>Manage posts</h1>
+        <h1>Admin</h1>
         <p>After you post on LinkedIn, open the post’s “…” menu, choose “Copy link to post”, and paste it here.</p>
       </div></header>
-      <form onSubmit={add} className="admin-form">
+      <div className="admin-form">
         <label>Admin token<input type="password" value={token} onChange={(e) => saveToken(e.target.value)} autoComplete="off" placeholder="ADMIN_TOKEN from your server settings" /></label>
+      </div>
+
+      <h2 className="h2" style={{ marginTop: 40 }}>Messages{inbox ? ` (${inbox.length})` : ''}</h2>
+      <button className="btn" onClick={loadInbox} disabled={!token}>{inbox ? 'Refresh messages' : 'Show messages'}</button>
+      {inboxErr && <p className="err">{inboxErr}</p>}
+      {inbox && inbox.length === 0 && <p className="muted">No messages yet. They appear here when someone uses the Contact page.</p>}
+      {inbox && inbox.length > 0 && (
+        <ul className="inbox">
+          {inbox.map((m) => (
+            <li key={m._id}>
+              <div className="inbox-meta">
+                <strong>{m.name}</strong>
+                <a href={`mailto:${m.email}?subject=${encodeURIComponent('Re: your message on my portfolio')}`}>{m.email}</a>
+                <time>{new Date(m.createdAt).toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' })}</time>
+              </div>
+              <p>{m.message}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <h2 className="h2" style={{ marginTop: 48 }}>Add a LinkedIn post</h2>
+      <form onSubmit={add} className="admin-form">
         <label>LinkedIn post link<input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://www.linkedin.com/posts/…" /></label>
         {msg.text && <p className={msg.kind === 'err' ? 'err' : 'ok'}>{msg.text}</p>}
         <button className="btn primary" disabled={busy || !url || !token}>{busy ? 'Adding…' : 'Add post'}</button>

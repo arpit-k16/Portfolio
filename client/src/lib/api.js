@@ -29,6 +29,7 @@ export const api = DEMO
       posts: async () => (await demo()).posts(),
       addPost: async () => { throw new Error('Posts can only be managed on the live site.'); },
       removePost: async () => { throw new Error('Posts can only be managed on the live site.'); },
+      messages: async () => { throw new Error('Messages can only be read on the live site.'); },
     }
   : {
       content: () => request('/content'),
@@ -39,6 +40,7 @@ export const api = DEMO
       posts: () => request('/posts'),
       addPost: (url, token) => request('/admin/posts', { method: 'POST', body: JSON.stringify({ url }), token }),
       removePost: (urn, token) => request(`/admin/posts/${encodeURIComponent(urn)}`, { method: 'DELETE', token }),
+      messages: (token) => request('/admin/messages', { token }),
     };
 
 // Anonymous per-browser id for unique-visitor counts. No cookies, no IP.

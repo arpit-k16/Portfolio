@@ -689,3 +689,10 @@ html, body { overflow-x: clip; }
 .admin-list li { display: grid; grid-template-columns: 130px 1fr auto; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font: 13.5px var(--mono); color: var(--muted); }
 .admin-list a { color: var(--cyan); }
 @media (max-width: 680px) { .post-frame { height: 520px; } }
+
+/* Admin inbox */
+.inbox { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 12px; }
+.inbox li { border: 1px solid var(--line, rgba(255,255,255,.12)); border-radius: 10px; padding: 14px 16px; }
+.inbox-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; font-size: .9rem; }
+.inbox-meta time { opacity: .65; margin-left: auto; }
+.inbox li p { margin: 8px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
