@@ -139,8 +139,8 @@ export default function Home() {
           </section>
 
           <section className="cta-band" aria-labelledby="cta-h" data-reveal="scale">
-            <h2 id="cta-h">Hiring a data analyst intern?</h2>
-            <p>I’m available for Data Analyst, Business Analyst and Data Science internships, remote or on-site, anywhere.</p>
+            <h2 id="cta-h">Hiring an analyst, intern or full-time?</h2>
+            <p>I’m available for Data Analyst, Business Analyst and Data Science roles, internships or full-time, remote or on-site, anywhere.</p>
             <div className="ctas">
               <Link className="btn primary" to="/contact">Send me a message</Link>
               <a className="btn" href="https://www.linkedin.com/in/arpit-kumar-261888315/" target="_blank" rel="noopener">LinkedIn</a>
