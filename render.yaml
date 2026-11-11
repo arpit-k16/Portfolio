@@ -1,7 +1,7 @@
 # One-click deploy on Render: New > Blueprint > pick this repo.
 services:
   - type: web
-    name: arpit-portfolio
+    name: arpit-kumar
     runtime: node
     plan: free
     buildCommand: npm run build
